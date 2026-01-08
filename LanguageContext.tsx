@@ -51,6 +51,7 @@ type Translations = {
       excerpt: string;
       date: string;
       readTime: string;
+      content: string[];
     }>;
   };
   cta: {
@@ -133,37 +134,67 @@ const translations: Record<Language, Translations> = {
           title: "The Art of Subtraction",
           excerpt: "Why removing features is the ultimate feature. A look into the philosophy of reductionist design.",
           date: "Oct 12",
-          readTime: "4 min read"
+          readTime: "4 min read",
+          content: [
+            "Perfection is achieved, not when there is nothing more to add, but when there is nothing left to take away. In digital product design, we often mistake abundance for value. We add features to justify price tags, forgetting that every new button adds cognitive load.",
+            "True craftsmanship is the art of subtraction. It is the courage to say 'no' to good ideas so that the great ones can breathe. When we strip away the decorative, the essential remains. This is not about aesthetic minimalism; it is about functional clarity.",
+            "We believe that software should behave like a good tool in a workshop: precise, reliable, and invisible until needed. It shouldn't clamor for your attention; it should wait for your intent."
+          ]
         },
         {
           title: "Cognitive Archaeology",
           excerpt: "Digging through your own notes shouldn't feel like a chore. How to build a second brain that lasts.",
           date: "Oct 08",
-          readTime: "6 min read"
+          readTime: "6 min read",
+          content: [
+            "Your notes are artifacts of your past self. But often, they are buried in a digital landfill, never to be seen again. We treat note-taking as a storage problem, when it is really a retrieval problem.",
+            "Cognitive archaeology is the practice of designing your workspace so that ideas resurface when you need them. It is about creating pathways between thoughts, ensuring that a spark from three years ago can ignite a fire today.",
+            "Instead of folders, we use associations. Instead of search, we use context. The goal is to create a living system that grows smarter the more you use it, turning a graveyard of text into a garden of insights."
+          ]
         },
         {
           title: "Silence as a Service",
           excerpt: "In an attention economy, paying for silence is the new luxury. The rise of calm technology.",
           date: "Sep 29",
-          readTime: "3 min read"
+          readTime: "3 min read",
+          content: [
+            "We live in an age of notification supremacy. Every app wants a piece of your mind. Silence has become a premium commodity, sold back to us in the form of noise-canceling headphones and retreat centers.",
+            "Calm technology respects your attention. It does not demand; it awaits. It informs without burdening. As we move forward, the most valuable tools will be the ones that know when to stay quiet.",
+            "We design for the 'flow state'. This means no red badges, no pop-ups, and no gamification. Just a clean, empty canvas that invites you to fill it with your own meaning."
+          ]
         },
         {
           title: "Analog Minds, Digital Tools",
           excerpt: "Bridging the tactile satisfaction of paper with the infinite recall of software.",
           date: "Sep 15",
-          readTime: "5 min read"
+          readTime: "5 min read",
+          content: [
+            "There is a reason we still reach for a notebook. The friction of paper slows us down, forcing us to think before we write. Digital tools offer infinite speed and editability, but often at the cost of retention.",
+            "The ideal workflow bridges these worlds. It captures the fluidity of ink and the permanence of code. We need tools that feel as natural as a sketchbook but as powerful as a database.",
+            "Our interface mimics the physical properties of paper—the texture, the whitespace, the permanence—while providing the magical capabilities of software, like instant search and infinite undo."
+          ]
         },
         {
           title: "The Myth of Multitasking",
           excerpt: "Neuroscience confirms what we already felt: doing two things at once is doing neither well.",
           date: "Aug 30",
-          readTime: "7 min read"
+          readTime: "7 min read",
+          content: [
+            "The human brain is a sequential processor. We cannot do two things at once; we can only switch between them very quickly. This switching comes with a metabolic cost. We call it 'multitasking', but it is really 'micro-distraction'.",
+            "Deep work requires momentum. Every time you tab-switch, you break the chain. To reclaim our productivity, we must reclaim our ability to do one thing at a time, for a long time.",
+            "Essential forces a single-context view. You cannot see your email while you write. You cannot see your calendar while you code. This constraint is our most powerful feature."
+          ]
         },
         {
           title: "Architecture of Thought",
           excerpt: "How the visual structure of your workspace influences the structure of your arguments.",
           date: "Aug 22",
-          readTime: "5 min read"
+          readTime: "5 min read",
+          content: [
+            "We shape our tools, and thereafter our tools shape us. A linear document processor encourages linear thinking. A spatial canvas encourages lateral connections. The interface is not neutral; it is the scaffolding of your thought process.",
+            "By choosing tools that allow for spatial organization, we unlock the brain's natural ability to map concepts. We move from lists to constellations, seeing the big picture without losing the details.",
+            "Our spatial view allows you to arrange ideas like cards on a table. You can group them, stack them, or scatter them. It is thinking with your hands, on a screen."
+          ]
         }
       ]
     },
@@ -245,37 +276,67 @@ const translations: Record<Language, Translations> = {
           title: "Sztuka Odejmowania",
           excerpt: "Dlaczego usuwanie funkcji jest najważniejszą funkcją. Spojrzenie na filozofię projektowania redukcjonistycznego.",
           date: "12 Paź",
-          readTime: "4 min czytania"
+          readTime: "4 min czytania",
+          content: [
+            "Perfekcję osiąga się nie wtedy, gdy nie ma już nic do dodania, ale wtedy, gdy nie ma już nic do odjęcia. W projektowaniu produktów cyfrowych często mylimy obfitość z wartością. Dodajemy funkcje, by uzasadnić cenę, zapominając, że każdy nowy przycisk zwiększa obciążenie poznawcze.",
+            "Prawdziwe rzemiosło to sztuka odejmowania. To odwaga mówienia 'nie' dobrym pomysłom, aby te wspaniałe mogły oddychać. Kiedy odrzucimy to, co dekoracyjne, pozostaje to, co istotne. Nie chodzi tu o estetyczny minimalizm, ale o funkcjonalną jasność.",
+            "Wierzymy, że oprogramowanie powinno zachowywać się jak dobre narzędzie w warsztacie: precyzyjne, niezawodne i niewidoczne, dopóki nie jest potrzebne. Nie powinno domagać się twojej uwagi; powinno czekać na twoją intencję."
+          ]
         },
         {
           title: "Archeologia Poznawcza",
           excerpt: "Przekopywanie się przez własne notatki nie powinno być udręką. Jak zbudować 'drugi mózg', który przetrwa lata.",
           date: "08 Paź",
-          readTime: "6 min czytania"
+          readTime: "6 min czytania",
+          content: [
+            "Twoje notatki to artefakty twojego przeszłego ja. Często jednak są pogrzebane w cyfrowym wysypisku, nigdy więcej nie oglądane. Traktujemy robienie notatek jako problem przechowywania, podczas gdy w rzeczywistości jest to problem odzyskiwania.",
+            "Archeologia poznawcza to praktyka projektowania przestrzeni roboczej tak, aby pomysły wypływały na powierzchnię, gdy ich potrzebujesz. Chodzi o tworzenie ścieżek między myślami, zapewnienie, że iskra sprzed trzech lat może rozpalić ogień dzisiaj.",
+            "Zamiast folderów używamy skojarzeń. Zamiast wyszukiwania używamy kontekstu. Celem jest stworzenie żywego systemu, który staje się mądrzejszy, im więcej go używasz, zamieniając cmentarzysko tekstu w ogród spostrzeżeń."
+          ]
         },
         {
           title: "Cisza jako Usługa",
           excerpt: "W gospodarce uwagi płacenie za ciszę staje się nowym luksusem. Wzrost popularności 'calm technology'.",
           date: "29 Wrz",
-          readTime: "3 min czytania"
+          readTime: "3 min czytania",
+          content: [
+            "Żyjemy w epoce supremacji powiadomień. Każda aplikacja chce kawałka twojego umysłu. Cisza stała się towarem luksusowym, sprzedawanym nam z powrotem w postaci słuchawek z redukcją szumów i ośrodków odosobnienia.",
+            "Spokojna technologia (calm technology) szanuje twoją uwagę. Nie żąda; czeka. Informuje bez obciążania. W miarę jak posuwamy się naprzód, najcenniejszymi narzędziami będą te, które wiedzą, kiedy milczeć.",
+            "Projektujemy dla stanu 'flow'. Oznacza to brak czerwonych odznak, brak wyskakujących okienek i brak grywalizacji. Tylko czyste, puste płótno, które zaprasza do wypełnienia go własnym sensem."
+          ]
         },
         {
           title: "Analogowe Umysły, Cyfrowe Narzędzia",
           excerpt: "Łączenie dotykowej satysfakcji papieru z nieskończoną pamięcią oprogramowania.",
           date: "15 Wrz",
-          readTime: "5 min czytania"
+          readTime: "5 min czytania",
+          content: [
+            "Jest powód, dla którego wciąż sięgamy po notatnik. Tarcie papieru spowalnia nas, zmuszając do myślenia przed napisaniem. Narzędzia cyfrowe oferują nieskończoną prędkość i edytowalność, ale często kosztem retencji.",
+            "Idealny przepływ pracy łączy te światy. Chwyta płynność atramentu i trwałość kodu. Potrzebujemy narzędzi, które są tak naturalne jak szkicownik, ale tak potężne jak baza danych.",
+            "Nasz interfejs naśladuje fizyczne właściwości papieru — fakturę, białą przestrzeń, trwałość — jednocześnie zapewniając magiczne możliwości oprogramowania, takie jak natychmiastowe wyszukiwanie i nieskończone cofanie."
+          ]
         },
         {
           title: "Mit Wielozadaniowości",
           excerpt: "Neuronauka potwierdza to, co już czuliśmy: robienie dwóch rzeczy naraz to nierobienie żadnej z nich dobrze.",
           date: "30 Sie",
-          readTime: "7 min czytania"
+          readTime: "7 min czytania",
+          content: [
+            "Ludzki mózg jest procesorem sekwencyjnym. Nie możemy robić dwóch rzeczy naraz; możemy tylko bardzo szybko przełączać się między nimi. To przełączanie wiąże się z kosztem metabolicznym. Nazywamy to 'wielozadaniowością', ale w rzeczywistości jest to 'mikro-rozproszenie'.",
+            "Głęboka praca wymaga rozpędu. Za każdym razem, gdy przełączasz kartę, przerywasz łańcuch. Aby odzyskać naszą produktywność, musimy odzyskać zdolność robienia jednej rzeczy naraz, przez długi czas.",
+            "Essential wymusza widok pojedynczego kontekstu. Nie możesz widzieć e-maila podczas pisania. Nie możesz widzieć kalendarza podczas kodowania. To ograniczenie jest naszą najpotężniejszą funkcją."
+          ]
         },
         {
           title: "Architektura Myśli",
           excerpt: "Jak wizualna struktura twojej przestrzeni roboczej wpływa na strukturę twoich argumentów.",
           date: "22 Sie",
-          readTime: "5 min czytania"
+          readTime: "5 min czytania",
+          content: [
+            "Kształtujemy nasze narzędzia, a potem nasze narzędzia kształtują nas. Liniowy edytor tekstu zachęca do myślenia liniowego. Przestrzenne płótno zachęca do połączeń bocznych. Interfejs nie jest neutralny; jest rusztowaniem twojego procesu myślowego.",
+            "Wybierając narzędzia, które pozwalają na organizację przestrzenną, odblokowujemy naturalną zdolność mózgu do mapowania pojęć. Przechodzimy od list do konstelacji, widząc duży obraz bez utraty szczegółów.",
+            "Nasze przestrzenne widoki pozwalają układać pomysły jak karty na stole. Możesz je grupować, układać w stosy lub rozrzucać. To myślenie rękami, na ekranie."
+          ]
         }
       ]
     },

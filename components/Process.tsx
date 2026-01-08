@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useLanguage } from '../LanguageContext';
 
 const ProcessStep: React.FC<{ number: string; title: string; desc: string; index: number }> = ({ number, title, desc, index }) => {

@@ -4,6 +4,7 @@ import Problem from './components/Problem';
 import Solution from './components/Solution';
 import Process from './components/Process';
 import Trust from './components/Trust';
+import Blog from './components/Blog';
 import CTA from './components/CTA';
 import Navigation from './components/Navigation';
 import Footer from './components/Footer';
@@ -28,6 +29,7 @@ const AppContent: React.FC = () => {
         <Solution />
         <Process />
         <Trust />
+        <Blog />
         <CTA />
       </main>
 

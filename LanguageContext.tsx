@@ -7,6 +7,7 @@ type Translations = {
     insight: string;
     method: string;
     journey: string;
+    journal: string;
   };
   hero: {
     title1: string;
@@ -42,6 +43,16 @@ type Translations = {
   trust: {
     label: string;
   };
+  blog: {
+    label: string;
+    readMore: string;
+    articles: Array<{
+      title: string;
+      excerpt: string;
+      date: string;
+      readTime: string;
+    }>;
+  };
   cta: {
     heading: string;
     subheading: string;
@@ -67,6 +78,7 @@ type Translations = {
     manifesto: string;
     pricing: string;
     login: string;
+    blogPost: string;
   };
 };
 
@@ -75,7 +87,8 @@ const translations: Record<Language, Translations> = {
     nav: {
       insight: "Insight",
       method: "Method",
-      journey: "Journey"
+      journey: "Journey",
+      journal: "Journal"
     },
     hero: {
       title1: "Silence",
@@ -112,6 +125,48 @@ const translations: Record<Language, Translations> = {
     trust: {
       label: "Quietly empowering thinkers at"
     },
+    blog: {
+      label: "The Journal",
+      readMore: "Read Article",
+      articles: [
+        {
+          title: "The Art of Subtraction",
+          excerpt: "Why removing features is the ultimate feature. A look into the philosophy of reductionist design.",
+          date: "Oct 12",
+          readTime: "4 min read"
+        },
+        {
+          title: "Cognitive Archaeology",
+          excerpt: "Digging through your own notes shouldn't feel like a chore. How to build a second brain that lasts.",
+          date: "Oct 08",
+          readTime: "6 min read"
+        },
+        {
+          title: "Silence as a Service",
+          excerpt: "In an attention economy, paying for silence is the new luxury. The rise of calm technology.",
+          date: "Sep 29",
+          readTime: "3 min read"
+        },
+        {
+          title: "Analog Minds, Digital Tools",
+          excerpt: "Bridging the tactile satisfaction of paper with the infinite recall of software.",
+          date: "Sep 15",
+          readTime: "5 min read"
+        },
+        {
+          title: "The Myth of Multitasking",
+          excerpt: "Neuroscience confirms what we already felt: doing two things at once is doing neither well.",
+          date: "Aug 30",
+          readTime: "7 min read"
+        },
+        {
+          title: "Architecture of Thought",
+          excerpt: "How the visual structure of your workspace influences the structure of your arguments.",
+          date: "Aug 22",
+          readTime: "5 min read"
+        }
+      ]
+    },
     cta: {
       heading: "Your mind is a terrible thing to clutter.",
       subheading: "Join the waitlist for Essential. Invitation only. No spam, ever.",
@@ -136,14 +191,16 @@ const translations: Record<Language, Translations> = {
     alerts: {
       manifesto: "The Essential Manifesto is coming soon.",
       pricing: "Pricing is available upon request for enterprise teams.",
-      login: "The login portal is currently restricted to early access members."
+      login: "The login portal is currently restricted to early access members.",
+      blogPost: "This article will be available on the full platform launch."
     }
   },
   pl: {
     nav: {
       insight: "Wgląd",
       method: "Metoda",
-      journey: "Podróż"
+      journey: "Podróż",
+      journal: "Dziennik"
     },
     hero: {
       title1: "Ucisz",
@@ -180,6 +237,48 @@ const translations: Record<Language, Translations> = {
     trust: {
       label: "Cicho wspieramy myślicieli z"
     },
+    blog: {
+      label: "Dziennik",
+      readMore: "Czytaj dalej",
+      articles: [
+        {
+          title: "Sztuka Odejmowania",
+          excerpt: "Dlaczego usuwanie funkcji jest najważniejszą funkcją. Spojrzenie na filozofię projektowania redukcjonistycznego.",
+          date: "12 Paź",
+          readTime: "4 min czytania"
+        },
+        {
+          title: "Archeologia Poznawcza",
+          excerpt: "Przekopywanie się przez własne notatki nie powinno być udręką. Jak zbudować 'drugi mózg', który przetrwa lata.",
+          date: "08 Paź",
+          readTime: "6 min czytania"
+        },
+        {
+          title: "Cisza jako Usługa",
+          excerpt: "W gospodarce uwagi płacenie za ciszę staje się nowym luksusem. Wzrost popularności 'calm technology'.",
+          date: "29 Wrz",
+          readTime: "3 min czytania"
+        },
+        {
+          title: "Analogowe Umysły, Cyfrowe Narzędzia",
+          excerpt: "Łączenie dotykowej satysfakcji papieru z nieskończoną pamięcią oprogramowania.",
+          date: "15 Wrz",
+          readTime: "5 min czytania"
+        },
+        {
+          title: "Mit Wielozadaniowości",
+          excerpt: "Neuronauka potwierdza to, co już czuliśmy: robienie dwóch rzeczy naraz to nierobienie żadnej z nich dobrze.",
+          date: "30 Sie",
+          readTime: "7 min czytania"
+        },
+        {
+          title: "Architektura Myśli",
+          excerpt: "Jak wizualna struktura twojej przestrzeni roboczej wpływa na strukturę twoich argumentów.",
+          date: "22 Sie",
+          readTime: "5 min czytania"
+        }
+      ]
+    },
     cta: {
       heading: "Twój umysł to zbyt cenna rzecz, by go zaśmiecać.",
       subheading: "Dołącz do listy oczekujących na Essential. Tylko na zaproszenie. Zero spamu.",
@@ -204,7 +303,8 @@ const translations: Record<Language, Translations> = {
     alerts: {
       manifesto: "Manifest Essential pojawi się wkrótce.",
       pricing: "Cennik dostępny na żądanie dla zespołów.",
-      login: "Portal logowania jest obecnie ograniczony do członków wczesnego dostępu."
+      login: "Portal logowania jest obecnie ograniczony do członków wczesnego dostępu.",
+      blogPost: "Ten artykuł będzie dostępny po pełnym uruchomieniu platformy."
     }
   }
 };

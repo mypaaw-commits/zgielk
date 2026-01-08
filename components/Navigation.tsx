@@ -19,6 +19,7 @@ const Navigation: React.FC = () => {
           <a href="#problem" className="hover:opacity-100 transition-opacity">{t.nav.insight}</a>
           <a href="#solution" className="hover:opacity-100 transition-opacity">{t.nav.method}</a>
           <a href="#process" className="hover:opacity-100 transition-opacity">{t.nav.journey}</a>
+          <a href="#blog" className="hover:opacity-100 transition-opacity">{t.nav.journal}</a>
         </div>
         
         <button 

@@ -13,7 +13,7 @@ const Footer: React.FC = () => {
     <footer className="bg-stone-50 py-12 border-t border-stone-200">
       <div className="container mx-auto px-6 md:px-12 flex flex-col md:flex-row justify-between items-end md:items-center gap-8">
         <div>
-          <span className="font-serif text-xl italic block mb-2">Essential.</span>
+          <span className="font-serif text-xl italic block mb-2">zgiełk.</span>
           <p className="text-stone-400 text-xs max-w-xs">
             © {new Date().getFullYear()} Essential Co. {t.footer.desc}
           </p>

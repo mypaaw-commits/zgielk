@@ -8,6 +8,7 @@ import Blog from './components/Blog';
 import CTA from './components/CTA';
 import Navigation from './components/Navigation';
 import Footer from './components/Footer';
+import ScrollToTop from './components/ScrollToTop';
 import { LanguageProvider } from './LanguageContext';
 
 const AppContent: React.FC = () => {
@@ -34,6 +35,7 @@ const AppContent: React.FC = () => {
       </main>
 
       <Footer />
+      <ScrollToTop />
     </div>
   );
 };

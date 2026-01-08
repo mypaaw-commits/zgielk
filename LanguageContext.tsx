@@ -82,10 +82,10 @@ type Translations = {
 const translations: Record<Language, Translations> = {
   en: {
     nav: {
-      insight: "Insight",
-      method: "Method",
-      journey: "Journey",
-      journal: "Journal"
+      insight: "Problem",
+      method: "Solution",
+      journey: "Process",
+      journal: "Blog"
     },
     hero: {
       title1: "Silence",
@@ -220,10 +220,10 @@ const translations: Record<Language, Translations> = {
   },
   pl: {
     nav: {
-      insight: "Wgląd",
-      method: "Metoda",
-      journey: "Podróż",
-      journal: "Dziennik"
+      insight: "Problem",
+      method: "Rozwiązanie",
+      journey: "Proces",
+      journal: "Blog"
     },
     hero: {
       title1: "Ucisz",

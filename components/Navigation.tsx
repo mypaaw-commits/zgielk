@@ -12,7 +12,7 @@ const Navigation: React.FC = () => {
       transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
       className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-6 md:px-12 md:py-8 mix-blend-difference text-stone-900 md:text-stone-50"
     >
-      <div className="text-xl font-serif italic tracking-wide">Essential.</div>
+      <div className="text-xl font-serif italic tracking-wide">zgiełk.</div>
       
       <div className="flex items-center gap-8">
         <div className="hidden md:flex gap-8 text-sm font-sans tracking-widest uppercase opacity-80">

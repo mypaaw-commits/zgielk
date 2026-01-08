@@ -63,8 +63,6 @@ type Translations = {
     desc: string;
     links: {
       manifesto: string;
-      pricing: string;
-      login: string;
     };
   };
   modal: {
@@ -77,8 +75,6 @@ type Translations = {
   };
   alerts: {
     manifesto: string;
-    pricing: string;
-    login: string;
     blogPost: string;
   };
 };
@@ -206,9 +202,7 @@ const translations: Record<Language, Translations> = {
     footer: {
       desc: "Designed for clarity in a chaotic world.",
       links: {
-        manifesto: "Manifesto",
-        pricing: "Pricing",
-        login: "Login"
+        manifesto: "Manifesto"
       }
     },
     modal: {
@@ -221,8 +215,6 @@ const translations: Record<Language, Translations> = {
     },
     alerts: {
       manifesto: "The Essential Manifesto is coming soon.",
-      pricing: "Pricing is available upon request for enterprise teams.",
-      login: "The login portal is currently restricted to early access members.",
       blogPost: "This article will be available on the full platform launch."
     }
   },
@@ -348,9 +340,7 @@ const translations: Record<Language, Translations> = {
     footer: {
       desc: "Zaprojektowane dla jasności w chaotycznym świecie.",
       links: {
-        manifesto: "Manifest",
-        pricing: "Cennik",
-        login: "Zaloguj"
+        manifesto: "Manifest"
       }
     },
     modal: {
@@ -363,8 +353,6 @@ const translations: Record<Language, Translations> = {
     },
     alerts: {
       manifesto: "Manifest Essential pojawi się wkrótce.",
-      pricing: "Cennik dostępny na żądanie dla zespołów.",
-      login: "Portal logowania jest obecnie ograniczony do członków wczesnego dostępu.",
       blogPost: "Ten artykuł będzie dostępny po pełnym uruchomieniu platformy."
     }
   }

@@ -27,20 +27,6 @@ const Footer: React.FC = () => {
           >
             {t.footer.links.manifesto}
           </a>
-          <a 
-            href="#" 
-            onClick={(e) => handleLinkClick(e, t.alerts.pricing)}
-            className="hover:text-stone-900 transition-colors"
-          >
-            {t.footer.links.pricing}
-          </a>
-          <a 
-            href="#" 
-            onClick={(e) => handleLinkClick(e, t.alerts.login)}
-            className="hover:text-stone-900 transition-colors"
-          >
-            {t.footer.links.login}
-          </a>
         </div>
       </div>
     </footer>

@@ -69,7 +69,7 @@ class NESLabPlayer {
     this.running=true;this.runButton.textContent='Pauza';this.canvas.focus();
     try {
       if(!this.audio&&window.AudioContext)this.audio=new AudioContext({sampleRate:48000});
-      if(this.audio)await this.audio.resume();
+      if(this.audio)this.audio.resume().catch(()=>{this.muted=true;this.soundButton.textContent='Dźwięk: niedostępny';});
     } catch(error) {this.muted=true;this.soundButton.textContent='Dźwięk: niedostępny';}
     if(!this.running||this.runToken!==token)return;
     this.lastTime=null;this.accumulator=0;

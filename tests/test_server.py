@@ -32,6 +32,17 @@ class ServerTests(unittest.TestCase):
         with urllib.request.urlopen(self.base + '/app.js?v=2') as response:
             self.assertIn(b'initialize()', response.read())
 
+    def test_home_is_emulator_room(self):
+        with urllib.request.urlopen(self.base + '/') as response:
+            html = response.read().decode()
+            self.assertIn('room.js', html)
+            self.assertIn('room.css', html)
+            self.assertNotIn('workspace.js', html)
+            self.assertNotIn('id="results"', html)
+        for asset in ('room.js', 'room.css'):
+            with urllib.request.urlopen(self.base + '/' + asset) as response:
+                self.assertEqual(response.status, 200)
+
     def test_analysis_upload(self):
         with urllib.request.urlopen(self.base + '/api/analyze', data=fixture()) as response:
             self.assertEqual(json.load(response)['tiles'], 512)

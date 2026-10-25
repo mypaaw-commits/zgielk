@@ -32,6 +32,7 @@ class Handler(BaseHTTPRequestHandler):
         files = {'/': ('index.html', 'text/html; charset=utf-8'), '/app.js': ('app.js', 'text/javascript; charset=utf-8'), '/style.css': ('style.css', 'text/css; charset=utf-8'),
                  '/player.js': ('player.js', 'text/javascript; charset=utf-8'), '/player.css': ('player.css', 'text/css; charset=utf-8'),
                  '/workspace.js': ('workspace.js', 'text/javascript; charset=utf-8'), '/workspace.css': ('workspace.css', 'text/css; charset=utf-8'),
+                 '/room.js': ('room.js', 'text/javascript; charset=utf-8'), '/room.css': ('room.css', 'text/css; charset=utf-8'),
                  '/vendor/jsnes.min.js': ('vendor/jsnes.min.js', 'text/javascript; charset=utf-8'),
                  '/vendor/jsnes-patched.min.js': ('vendor/jsnes-patched.min.js', 'text/javascript; charset=utf-8')}
         if path not in files:

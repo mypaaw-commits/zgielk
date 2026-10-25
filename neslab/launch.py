@@ -8,7 +8,7 @@ def main():
     # An automatically chosen port avoids conflicts with other local applications.
     server = ThreadingHTTPServer(('127.0.0.1', 0), Handler)
     address = f'http://127.0.0.1:{server.server_port}/'
-    print('NES LAB — analizator ROM-ów', flush=True)
+    print('NES ROOM — jeszcze jedna runda', flush=True)
     print(f'Otwórz w przeglądarce: {address}', flush=True)
     print('Pozostaw to okno otwarte. Ctrl+C zatrzymuje aplikację.', flush=True)
     try:

@@ -16,10 +16,17 @@ $0000/$1000; bits 7..1 select the even top tile. Bit 0 must not also
 subtract a tile from that even base. The bottom tile is base + 1.
 Both horizontal and vertical flip flags still apply unchanged.
 
-The minified distribution changes one expression only. License in
+Fix 1 changes one expression; fix 2 below changes two more expressions. License in
 JSNES-LICENSE.txt. Package provenance in README.txt.
 Regression test: node tests/test_ppu.js
 The test compares every tile byte (0..255), both pattern tables,
 all four flip combinations, all pixels and all sprite palettes against
 an independent 8x16 OAM addressing formula. It must fail on the original
 upstream bundle and pass on the patched bundle.
+
+NES LAB PPU fix 2 — flipped 8x16 sprite-zero hit
+The precomputed sprite-zero test already flips the full 16-pixel row.
+Its original code then swaps the upper/lower tile a second time, choosing
+the wrong half. Remove this second tile swap; retain the flipped row.
+This affects sprite/background synchronization in games using sprite zero.
+The original bundle is unchanged. Regression: node tests/test_sprite_zero.js

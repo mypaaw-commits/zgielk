@@ -5,10 +5,10 @@ let ready = false;
 let player = null;
 const hex = n => '0x' + n.toString(16).toUpperCase().padStart(6, '0');
 function element(tag, text) { const node = document.createElement(tag); node.textContent = text; return node; }
-async function send(path, file) {
+async function send(path, file, extraHeaders = {}) {
   let response;
   try {
-    response = await fetch(path, {method:'POST', headers:{'Content-Type':'application/octet-stream'}, body:file, signal:AbortSignal.timeout(30000)});
+    response = await fetch(path, {method:'POST', headers:{'Content-Type':'application/octet-stream',...extraHeaders}, body:file, signal:AbortSignal.timeout(30000)});
   } catch(error) {
     throw new Error(error.name === 'TimeoutError' ? 'Serwer nie odpowiedział w ciągu 30 sekund. Spróbuj ponownie lub uruchom ponownie serwer NES LAB.' : 'Nie można połączyć się z analizatorem. Sprawdź, czy serwer NES LAB nadal działa, i odśwież stronę.');
   }
@@ -37,6 +37,7 @@ async function analyze(file) {
     if (file.size > 32 * 1024 * 1024) throw new Error('Limit pliku to 32 MiB.');
     const report = await (await send('/api/analyze', file)).json();
     currentFile = file;
+    window.dispatchEvent(new CustomEvent("neslab-analysis",{detail:report}));
     const support=report.runtime;
     $('preview').disabled=!support.available;
     $('generate').disabled=!support.available;
@@ -57,7 +58,15 @@ async function analyze(file) {
     $('strings').replaceChildren();
     for (const item of report.strings) { const row=element('div',''); row.className='string'; row.append(element('span',hex(item.prg_offset)),element('span',item.text)); $('strings').append(row); }
     if (!report.strings.length) $('strings').append(element('p','Brak kandydatów. To nie wyklucza tekstu we własnym kodowaniu gry.'));
-    const bytes=Uint8Array.from(atob(report.preview_chr_base64),c=>c.charCodeAt(0));
+    drawTiles(report.preview_chr_base64);
+    $('results').hidden=false;
+    $('message').textContent='Analiza gotowa. Zajrzyj do opisu gry, grafiki i referencji poziomów.';
+    $('results').scrollIntoView({block:'start'});
+  } catch(error) { $('message').textContent=error.message; }
+  finally { busy=false; $('rom').disabled=false; $('rom').value=''; }
+}
+function drawTiles(base64) {
+    const bytes=Uint8Array.from(atob(base64),c=>c.charCodeAt(0));
     $('tiles').hidden=!bytes.length; $('chr-empty').hidden=!!bytes.length;
     const context=$('tiles').getContext('2d');
     const image=context.createImageData(128,256); const palette=[18,83,158,241];
@@ -67,11 +76,6 @@ async function analyze(file) {
       image.data.set([color,color,color,255],offset);
     }
     context.putImageData(image,0,0);
-    $('results').hidden=false;
-    $('message').textContent='Analiza gotowa. Możesz wyświetlić grę lub wygenerować projekt dla obsługiwanego ROM-u.';
-    $('results').scrollIntoView({block:'start'});
-  } catch(error) { $('message').textContent=error.message; }
-  finally { busy=false; $('rom').disabled=false; $('rom').value=''; }
 }
 $('rom').addEventListener('change',event=>analyze(event.target.files[0]));
 for (const name of ['dragenter','dragover']) $('upload').addEventListener(name,event=>{event.preventDefault();$('upload').classList.add('drag');});

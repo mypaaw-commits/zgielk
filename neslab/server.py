@@ -31,6 +31,7 @@ class Handler(BaseHTTPRequestHandler):
             return
         files = {'/': ('index.html', 'text/html; charset=utf-8'), '/app.js': ('app.js', 'text/javascript; charset=utf-8'), '/style.css': ('style.css', 'text/css; charset=utf-8'),
                  '/player.js': ('player.js', 'text/javascript; charset=utf-8'), '/player.css': ('player.css', 'text/css; charset=utf-8'),
+                 '/workspace.js': ('workspace.js', 'text/javascript; charset=utf-8'), '/workspace.css': ('workspace.css', 'text/css; charset=utf-8'),
                  '/vendor/jsnes.min.js': ('vendor/jsnes.min.js', 'text/javascript; charset=utf-8'),
                  '/vendor/jsnes-patched.min.js': ('vendor/jsnes-patched.min.js', 'text/javascript; charset=utf-8')}
         if path not in files:
@@ -40,7 +41,7 @@ class Handler(BaseHTTPRequestHandler):
         self.reply(200, (WEB / name).read_bytes(), mime)
 
     def do_POST(self):
-        if self.path not in ('/api/analyze', '/api/export', '/api/project', '/api/runtime'):
+        if self.path not in ('/api/analyze', '/api/export', '/api/project', '/api/runtime', '/api/chr'):
             self.reply(404, b'Not found', 'text/plain')
             return
         try:
@@ -51,7 +52,15 @@ class Handler(BaseHTTPRequestHandler):
             if len(data) != length:
                 raise RomError('Nie odebrano całego pliku.')
             data = read_input(data)
-            if self.path == '/api/export':
+            if self.path == '/api/chr':
+                _, parts = analyze(data)
+                bank = int(self.headers.get('X-CHR-Bank', '0'))
+                count = (len(parts['chr.bin']) + 8191) // 8192
+                if not 0 <= bank < count:
+                    raise RomError('Nieprawidłowy bank CHR.')
+                result = {'bank': bank, 'preview_chr_base64': base64.b64encode(parts['chr.bin'][bank*8192:(bank+1)*8192]).decode()}
+                self.reply(200, json.dumps(result).encode(), 'application/json; charset=utf-8')
+            elif self.path == '/api/export':
                 self.reply(200, export_zip(data), 'application/zip')
             elif self.path == '/api/project':
                 self.reply(200, project_zip(data), 'application/zip', 'neslab-project.zip')

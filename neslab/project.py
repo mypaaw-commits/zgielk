@@ -6,6 +6,7 @@ import zipfile
 from pathlib import Path
 from .rom import RomError, analyze, export_zip
 from .disasm import decode, listing
+from .dossier import dossier, BATTLE_CITY
 
 WEB = Path(__file__).resolve().parent.parent / 'web'
 MAPPERS = (0, 1, 2, 3, 4, 5, 7, 9, 11, 34, 38, 66, 71, 79, 94, 118, 119, 140, 180, 240, 241)
@@ -28,13 +29,15 @@ def compatibility(data, report):
         reasons.append('Runtime wymaga całych banków PRG 16 KiB i CHR 8 KiB.')
     if report['format'] == 'iNES' and any(data[8:16]) and report['mapper'] >= 16:
         reasons.append('Niejednoznaczny stary nagłówek: parser i runtime mogłyby inaczej rozpoznać mapper.')
-    return {'available': not reasons, 'reasons': reasons, 'mode': 'original-rom-emulation', 'engine': 'JSNES 2.1.0 + NES LAB PPU fix 1',
+    return {'available': not reasons, 'reasons': reasons, 'mode': 'original-rom-emulation', 'engine': 'JSNES 2.1.0 + NES LAB PPU fixes 1-2',
             'notice': 'Projekt wykonuje oryginalny kod ROM-u w emulatorze JavaScript. Nie jest automatycznym przepisaniem gry ani gwarancją zgodności 1:1.'}
 
 
 def inspect(data):
     report, parts = analyze(data)
     report['runtime'] = compatibility(data, report)
+    report['runtime']['verification'] = 'Przetestowany wariant ROM-u; pełna zgodność niepotwierdzona.' if report['sha256'] == BATTLE_CITY else 'Niezweryfikowany ROM. Obsługa mappera nie gwarantuje poprawnego obrazu ani działania.'
+    report['game'] = dossier(report)
     code = decode(parts['prg.bin'], report['mapper'])
     report['code_analysis'] = {key: value for key, value in code.items() if key != 'instructions'}
     report['code_analysis']['instruction_count'] = len(code['instructions'])
@@ -66,6 +69,7 @@ def project_zip(data):
                     archive.writestr(name, raw.read(name))
         report.pop('preview_chr_base64')
         archive.writestr('analysis.json', json.dumps(report, ensure_ascii=False, indent=2))
+        archive.writestr('design/game-design.json', json.dumps(report['game'], ensure_ascii=False, indent=2))
         archive.writestr('code/6502.asm', listing(code))
         archive.writestr('code/control-flow.json', json.dumps(code, ensure_ascii=False, indent=2))
         archive.writestr('play.html', html)
@@ -80,5 +84,5 @@ def project_zip(data):
             'Original.nes i surowe sekcje zachowują bajty ROM-u. Grafika CHR: graphics/.\n'
             'code/6502.asm: statyczni kandydaci na kod dla NROM. To nie jest odzyskany kod źródłowy, gotowy port ani opis mechanik.\n'
             'Gra wymaga oryginalnego ROM-u osadzonego w play.html. Nie usuwa to zależności od programu 6502.\n'
-            'Runtime: JSNES 2.1.0 + NES LAB PPU fix 1, Apache-2.0. Licencja i opis zmian w licenses/. Zgodność wszystkich scen i dźwięku 1:1 nie została potwierdzona.\n')
+            'Runtime: JSNES 2.1.0 + NES LAB PPU fixes 1-2, Apache-2.0. Licencja i opis zmian w licenses/. Zgodność wszystkich scen i dźwięku 1:1 nie została potwierdzona.\n')
     return output.getvalue()

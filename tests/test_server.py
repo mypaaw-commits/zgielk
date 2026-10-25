@@ -66,3 +66,14 @@ class ServerTests(unittest.TestCase):
         with urllib.request.urlopen(self.base+'/api/runtime',data=export_zip(rom)) as response:
             import base64
             self.assertEqual(base64.b64decode(json.load(response)['romBase64']),rom)
+
+    def test_chr_bank_selection_and_bounds(self):
+        import base64
+        rom=bytearray(runnable_rom());rom[5]=2;rom.extend(bytes([42])*8192)
+        request=urllib.request.Request(self.base+'/api/chr',data=rom,headers={'X-CHR-Bank':'1'})
+        with urllib.request.urlopen(request) as response:
+            self.assertEqual(base64.b64decode(json.load(response)['preview_chr_base64']),bytes([42])*8192)
+        for bank in ('-1','2','invalid'):
+            with self.assertRaises(urllib.error.HTTPError) as error:
+                urllib.request.urlopen(urllib.request.Request(self.base+'/api/chr',data=rom,headers={'X-CHR-Bank':bank}))
+            self.assertEqual(error.exception.code,400)

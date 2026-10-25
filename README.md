@@ -1,4 +1,4 @@
-# NES LAB 0.2.1
+# NES LAB 0.3
 
 Wersja 0.2.1 poprawia indeksowanie sprite’ów 8×16 z tablicy wzorców $1000 (błędne bonusy i pociski). Poprawka działa w podglądzie i w nowo wygenerowanym `play.html`. Stare projekty należy wygenerować ponownie. Oryginalny ROM nie jest zmieniany. Szczegóły i odtwarzalny patch: `web/vendor/JSNES-PATCHES.txt`, `scripts/patch_jsnes.py`. Oryginalny bundle JSNES pozostaje bez zmian; aplikacja używa osobnego pliku z poprawką.
 
@@ -14,6 +14,16 @@ Przeglądarka otwiera się automatycznie. Można też użyć START-WINDOWS.bat a
 Wybierz `.nes` lub ZIP wyeksportowany z NES LAB. „Podgląd gry” otwiera panel emulatora; kliknij w nim Uruchom. „Generuj projekt ZIP” tworzy osobny projekt. Rozpakuj go i otwórz `play.html`: zawiera runtime, ROM i wszystkie zasoby, działa bez serwera i bez internetu. Przyciski: pauza, pojedyncza klatka, restart, dźwięk i zrzut stanu JSON. Klawiatura: strzałki, X=A, Z=B, Enter=Start, Shift=Select; dostępne też przyciski ekranowe.
 
 Wejście maksymalnie 32 MiB. Plik trafia do serwera aplikacji, jest analizowany w pamięci i nie jest zapisywany na dysku. Z ZIP-a odczytywany jest wyłącznie `original.nes`, z kontrolą rozmiaru; pozostała zawartość nie jest wykonywana ani rozpakowywana na dysk. Serwer przeznaczony do lokalnego rozwoju, bez uwierzytelniania. Wygenerowany projekt zawiera ROM, dlatego nie jest częścią publicznej paczki narzędzia.
+
+## Przestrzeń analizy 0.3
+
+- Sekcje: przegląd, gra i mechaniki, grafika, poziomy, plan portu; układ mobilny i zwijane dane techniczne.
+- Atlas CHR zachowuje dotychczasowe renderowanie; wybierz dowolny bank i skalę podglądu. Brak CHR-ROM jest jawnie oznaczony.
+- Dokładnie rozpoznany wariant Battle City ma opis referencyjny, mechaniki i odtwarzalną obserwację pierwszego etapu (klatka 1800). To ręcznie opracowany profil, nie automatyczne odzyskanie reguł z kodu. Inne SHA-256 nie dziedziczą tego profilu.
+- Zachowuj własne klatki poziomów z podglądu. Referencja zawiera PNG, numer klatki, wejścia, OAM i tablice PPU (32×30 ID kafelków + atrybuty). Nie jest to dekoder map ani kolizji. Limit 8 ujęć na ROM.
+- Notatki i ujęcia zapisują się w localStorage osobno dla SHA-256; eksport/import `neslab-research.json` przenosi je między komputerami. Gdy lokalny zapis się nie uda, UI informuje o konieczności eksportu. ZIP projektu zawiera bazowy profil w `design/game-design.json`, a własne notatki wymagają osobnego eksportu dokumentacji.
+- Zgodność mappera i potwierdzenie poprawnego działania gry są rozdzielone. Niezweryfikowane ROM-y mają odpowiedni komunikat.
+- Kolejna poprawka PPU usuwa podwójne odwrócenie połówek sprite'a 8×16 w predykcji trafienia sprite zero. Zmniejsza ryzyko błędnej synchronizacji obrazu; nie oznacza weryfikacji wszystkich gier.
 
 ## Dostępne funkcje
 
@@ -43,8 +53,11 @@ Projekt odtwarza działanie przez wykonanie oryginalnego kodu maszynowego w emul
 ```sh
 python -m unittest discover -s tests -v
 node tests/test_ppu.js
+node tests/test_sprite_zero.js
 ```
 
 Testy używają syntetycznych ROM-ów: nagłówki, rozmiary NES 2.0, trainer, pliki ucięte, wektory, teksty, bezstratny ZIP, bitplany PNG i CRC, analiza skoków 6502, nieobsługiwane warianty, import ZIP z limitem rozpakowanego rozmiaru oraz pełne API analizy i generatora.
 
 Budowanie paczki narzędzia (bez ROM-ów użytkownika): `python scripts/package.py`.
+
+Docelowy natywny klon: przeglądarka, własna logika JavaScript/TypeScript i Canvas 2D; edytowalne poziomy i zasoby. Nie opieramy planu na Godot. Ten etap przygotowuje materiały do portu; nie zawiera jeszcze nowego silnika gry.

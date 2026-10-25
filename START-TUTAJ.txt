@@ -1,4 +1,4 @@
-NES LAB 0.2.1 — analizator i generator projektów NES
+NES LAB 0.3 — analizator i generator projektów NES
 
 Ta wersja poprawia błędne kafelki bonusów i pocisków dla sprite'ów 8x16.
 Jeśli masz stary wygenerowany play.html, wygeneruj projekt ponownie.
@@ -29,3 +29,9 @@ Mechaniki pozostają w oryginalnym programie. To nie automatyczny natywny port,
 nie odzyskany kod źródłowy i nie gwarancja zgodności 1:1. Nie wszystkie mappery
 i warianty sprzętu są obsługiwane; aplikacja pokazuje ograniczenia.
 W paczce narzędzia nie ma gier ani ROM-ów. Szczegóły: README.md.
+
+Wersja 0.3 dodaje dokumentację gry i mechanik, banki CHR, przykłady poziomów
+oraz notatki i referencje do przyszłego portu. Opis referencyjny Battle City
+jest przypisany do konkretnej sumy SHA-256, a nie automatycznie odzyskany
+z każdego ROM-u. Inne gry wymagają własnych obserwacji. Pobierz dokumentację
+JSON, aby przenieść notatki i zachowane klatki na inny komputer.

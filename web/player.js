@@ -111,7 +111,7 @@ class NESLabPlayer {
   releaseAll(){if(!this.held)return;for(const [code,key] of Object.entries(this.keyMap))if(this.held.has(key))this.button(code,false);}
   snapshot() {
     if(!this.nes)throw new Error('Brak wczytanego ROM-u.');
-    return {format:'neslab-runtime-state-v1',engine:'JSNES 2.1.0 + NES LAB PPU fix 1',rom_sha256:this.config.sha256,
+    return {format:'neslab-runtime-state-v1',engine:'JSNES 2.1.0 + NES LAB PPU fixes 1-2',rom_sha256:this.config.sha256,
       frame:this.frameCount,frame_hash:this.frameHash,frame_hash_algorithm:'fnv1a-u32-bgr',screenshot_png:this.canvas.toDataURL('image/png'),
       inputs:this.inputs.slice(),input_log_limit:20000,input_log_may_be_truncated:this.inputs.length>=20000,
       ram:Array.from(this.nes.cpu.mem.slice(0,2048)),ppu_vram:Array.from(this.nes.ppu.vramMem),oam:Array.from(this.nes.ppu.spriteMem),

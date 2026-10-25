@@ -8,7 +8,7 @@ ROOT = Path(__file__).resolve().parent.parent
 
 def main():
     parser=argparse.ArgumentParser()
-    parser.add_argument('--output',type=Path,default=Path('/workspace/artifacts/NES-LAB-v0.2.1.zip'))
+    parser.add_argument('--output',type=Path,default=Path('/workspace/artifacts/NES-LAB-v0.3.zip'))
     args=parser.parse_args()
     files=[ROOT/name for name in ('README.md','START-TUTAJ.txt','START-WINDOWS.bat','START-MAC-LINUX.command')]
     for folder in ('neslab','web','tests','scripts'):

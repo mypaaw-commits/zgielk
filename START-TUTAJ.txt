@@ -1,4 +1,4 @@
-NES ROOM 0.5.1 — jeszcze jedna runda
+NES ROOM 0.6 — jeszcze jedna runda
 
 1. Rozpakuj CAŁĄ paczkę ZIP do nowego katalogu.
 2. Jeśli nie masz Pythona, zainstaluj Python 3.12+ z python.org.
@@ -18,3 +18,9 @@ Na telefonie dostępny jest pad dotykowy.
 Pozostaw okno terminala otwarte podczas gry. Ctrl+C zatrzymuje aplikację.
 Aplikacja działa lokalnie i nie wymaga internetu. Paczka nie zawiera ROM-ów.
 Nie wszystkie gry i warianty sprzętu są obsługiwane.
+
+Rekonstrukcja: w górnym menu „Przygotuj rekonstrukcję”.
+Wybierz ROM, zachowaj obserwacje z działającej gry i pobierz pakiet ZIP.
+Pakiet służy do stworzenia własnego silnika gry w przeglądarce.
+Nie przepisuje automatycznie całej gry; braki są opisane w dokumentacji.
+Pobierz pakiet przed zamknięciem karty, aby zachować obserwacje.

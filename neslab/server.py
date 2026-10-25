@@ -8,6 +8,7 @@ from urllib.parse import urlsplit
 from .rom import MAX_ROM, RomError, analyze, export_zip
 from .inputs import read_input
 from .project import inspect, project_zip, compatibility
+from .handoff import handoff_zip, binary
 
 WEB = Path(__file__).resolve().parent.parent / 'web'
 
@@ -33,6 +34,7 @@ class Handler(BaseHTTPRequestHandler):
                  '/player.js': ('player.js', 'text/javascript; charset=utf-8'), '/player.css': ('player.css', 'text/css; charset=utf-8'),
                  '/workspace.js': ('workspace.js', 'text/javascript; charset=utf-8'), '/workspace.css': ('workspace.css', 'text/css; charset=utf-8'),
                  '/room.js': ('room.js', 'text/javascript; charset=utf-8'), '/room.css': ('room.css', 'text/css; charset=utf-8'),
+                 '/handoff.js': ('handoff.js', 'text/javascript; charset=utf-8'),
                  '/assets/room-1994.png': ('assets/room-1994.png', 'image/png'),
                  '/vendor/jsnes.min.js': ('vendor/jsnes.min.js', 'text/javascript; charset=utf-8'),
                  '/vendor/jsnes-patched.min.js': ('vendor/jsnes-patched.min.js', 'text/javascript; charset=utf-8')}
@@ -43,16 +45,23 @@ class Handler(BaseHTTPRequestHandler):
         self.reply(200, (WEB / name).read_bytes(), mime)
 
     def do_POST(self):
-        if self.path not in ('/api/analyze', '/api/export', '/api/project', '/api/runtime', '/api/chr'):
+        if self.path not in ('/api/analyze', '/api/export', '/api/project', '/api/runtime', '/api/chr','/api/handoff'):
             self.reply(404, b'Not found', 'text/plain')
             return
         try:
             length = int(self.headers.get('Content-Length', '0'))
-            if not 0 < length <= MAX_ROM:
+            if not 0 < length <= (64*1024*1024 if self.path=='/api/handoff' else MAX_ROM):
                 raise RomError('Wybierz plik ROM o rozmiarze do 32 MiB.')
             data = self.rfile.read(length)
             if len(data) != length:
                 raise RomError('Nie odebrano całego pliku.')
+            if self.path=='/api/handoff':
+                try:payload=json.loads(data)
+                except (ValueError,UnicodeError) as exc:raise RomError('Nieprawidłowy JSON.') from exc
+                if not isinstance(payload,dict):raise RomError('Nieprawidłowe żądanie.')
+                rom=read_input(binary(payload.get('rom_base64'),MAX_ROM,'ROM'))
+                self.reply(200,handoff_zip(rom,payload.get('observations'),payload.get('notes','')),'application/zip','reconstruction-pack.zip')
+                return
             data = read_input(data)
             if self.path == '/api/chr':
                 _, parts = analyze(data)

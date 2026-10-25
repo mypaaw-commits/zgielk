@@ -1,4 +1,4 @@
-# NES ROOM 0.5.1
+# NES ROOM 0.6
 
 Prosty emulator NES w przeglądarce, w ilustracyjnym pokoju z lat 90. Wybierz własny plik `.nes` lub upuść go na ekran kineskopowego telewizora — gra uruchamia się automatycznie. Interfejs skupia się na graniu.
 
@@ -47,3 +47,11 @@ Paczka bez ROM-ów: `python scripts/package.py`.
 Wersja 0.5: pełna klatka 256×240 bez overscanu. Gra zachowuje natywne proporcje i mieści się wewnątrz ramki; linie CRT można wyłączyć. Pełny ekran pokazuje całą scenę, a nie tylko TV. Lokalna scenografia `web/assets/room-1994.png` została wygenerowana do tej aplikacji i jest dołączona do paczki, więc nie wymaga internetu.
 
 Wersja 0.5.1 przybliża kadr i TV: lekko w zwykłym widoku, wyraźnie mocniej na pełnym ekranie. Telewizor i scenografia są skalowane razem, z zachowaniem ustawienia na szafce.
+
+## Pakiet do rekonstrukcji niezależnej gry
+
+W górnym menu wybierz „Przygotuj rekonstrukcję”. Możesz wskazać ROM / wcześniejszy ZIP także bez uruchamiania gry. Eksport zawiera oryginalne sekcje, grafikę CHR-ROM, kandydatów na kod 6502 (NROM), manifest SHA-256 oraz dokumentację nierozpoznanych elementów. Nie jest to automatyczny natywny port.
+
+Aby zebrać dowody dynamiczne, wczytaj tę grę w emulatorze, pokaż interesujący moment i otwórz dialog rekonstrukcji. „Zachowaj obserwację” zapisuje klatkę, wzorce PPU także z CHR-RAM, RAM, OAM, VRAM, indeksy palet i log wejść. Limit 12 obserwacji, 20 000 zdarzeń na log; ewentualne ucięcie logu jest oznaczone. Obserwacje i notatki pozostają tylko w otwartej karcie do pobrania pakietu. Zmiana pliku czyści je.
+
+Przekaż cały `reconstruction-pack.zip` do pracy nad grą od zera. `HANDOFF.md` określa cel JavaScript/TypeScript + Canvas bez wykonywania ROM-u w finalnej implementacji. `reconstruction-spec.json` i manifest wskazują dowody, braki i pochodzenie. Pakiet nie ma gotowego silnika ani odzyskanych reguł; dekodery poziomów, fizyka, AI i audio wymagają analizy konkretnej gry. Emulator nie jest niezależnym wzorcem sprzętowym — przed przyjęciem danych za referencję porównaj istotne sceny z innym emulatorem lub NES-em.

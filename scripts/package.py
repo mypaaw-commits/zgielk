@@ -11,9 +11,9 @@ def main():
     parser.add_argument('--output',type=Path,default=Path('/workspace/artifacts/NES-ROOM-v0.6.zip'))
     args=parser.parse_args()
     files=[ROOT/name for name in ('README.md','START-TUTAJ.txt','START-WINDOWS.bat','START-MAC-LINUX.command')]
-    for folder in ('neslab','web','tests','scripts'):
+    for folder in ('neslab','web','tests','scripts','native-bubble'):
         files.extend(path for path in (ROOT/folder).rglob('*') if path.is_file()
-            and '__pycache__' not in path.parts and path.suffix.lower() in ('.py','.js','.css','.html','.txt','.md','.png'))
+            and '__pycache__' not in path.parts and path.suffix.lower() in ('.py','.js','.css','.html','.txt','.md','.png','.json','.cjs'))
     args.output.parent.mkdir(parents=True,exist_ok=True)
     with zipfile.ZipFile(args.output,'w',zipfile.ZIP_DEFLATED) as archive:
         for path in sorted(files):

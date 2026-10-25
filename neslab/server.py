@@ -38,6 +38,12 @@ class Handler(BaseHTTPRequestHandler):
                  '/assets/room-1994.png': ('assets/room-1994.png', 'image/png'),
                  '/vendor/jsnes.min.js': ('vendor/jsnes.min.js', 'text/javascript; charset=utf-8'),
                  '/vendor/jsnes-patched.min.js': ('vendor/jsnes-patched.min.js', 'text/javascript; charset=utf-8')}
+        native_files = {'/native/':'index.html','/native/index.html':'index.html','/native/engine.js':'engine.js','/native/app.js':'app.js','/native/game-data.js':'game-data.js','/native/style.css':'style.css','/native/level.json':'level.json','/native/assets/tiles.png':'assets/tiles.png','/native/assets/actors.png':'assets/actors.png','/native/assets/provenance.json':'assets/provenance.json'}
+        if path in native_files:
+            filename=native_files[path]
+            mime='image/png' if filename.endswith('.png') else 'application/json' if filename.endswith('.json') else 'text/javascript; charset=utf-8' if filename.endswith('.js') else 'text/css; charset=utf-8' if filename.endswith('.css') else 'text/html; charset=utf-8'
+            self.reply(200,(WEB.parent/'native-bubble'/filename).read_bytes(),mime)
+            return
         if path not in files:
             self.reply(404, b'Not found', 'text/plain')
             return

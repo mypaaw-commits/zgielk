@@ -1,0 +1,26 @@
+{
+  "source_sha256": "fc521e891d074369d67579fd56617460b9c9949dec67cc4a37d46b4e4bb09d29",
+  "title": "Bubble Bobble (NES, ekran tytułowy 1988 Taito America)",
+  "observationFrame": 3848,
+  "map": "Odczyt tablicy PPU z odtworzonej sekwencji wejść, nie dekoder wszystkich plansz",
+  "collision": "Robocze przypisanie kafelka 138 jako platformy. Reguły wymagają weryfikacji.",
+  "sprites": "Oryginalne wzorce i palety z zaobserwowanych stanów OAM",
+  "mechanics": "Niezależna implementacja robocza; zgodność 1:1 niepotwierdzona",
+  "knownGaps": [
+    "Pozostałe poziomy",
+    "Dokładne AI, fizyka i reguły kontaktu",
+    "Wszystkie bonusy, sekrety i typy przeciwników",
+    "Oryginalny dźwięk",
+    "Tryb dwóch graczy"
+  ],
+  "measurements": {
+    "playerX": "W logu dominują przemieszczenia 1 px/klatkę",
+    "jumpY": "Zaobserwowane ujemne kroki do -3 px/klatkę; grawitacja jest przybliżeniem"
+  },
+  "background_validation": {
+    "compared_pixels": 46752,
+    "matching_pixels": 46752,
+    "excluded": "HUD, visible OAM sprite rectangles and outer overscan area",
+    "claim": "Static background only; not gameplay equivalence"
+  }
+}

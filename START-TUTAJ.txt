@@ -1,4 +1,4 @@
-NES ROOM 0.4 — jeszcze jedna runda
+NES ROOM 0.5 — jeszcze jedna runda
 
 1. Rozpakuj CAŁĄ paczkę ZIP do nowego katalogu.
 2. Jeśli nie masz Pythona, zainstaluj Python 3.12+ z python.org.
@@ -11,7 +11,8 @@ NES ROOM 0.4 — jeszcze jedna runda
 5. Enter = Start. Strzałki = ruch. X = A. Z = B. Shift = Select.
    Kliknij ekran TV, jeśli klawiatura nie reaguje.
 
-Pauza, restart i pełny ekran są pod telewizorem. Escape opuszcza pełny ekran.
+Pauza, restart i pełny ekran są pod telewizorem. Pełny ekran pokazuje cały pokój z lekko oddalonym telewizorem.
+Escape przywraca poprzedni widok.
 Pokrętło VOLUME wycisza grę. CRT wyłącza efekt linii kineskopu.
 Na telefonie dostępny jest pad dotykowy.
 Pozostaw okno terminala otwarte podczas gry. Ctrl+C zatrzymuje aplikację.

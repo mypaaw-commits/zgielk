@@ -8,12 +8,12 @@ ROOT = Path(__file__).resolve().parent.parent
 
 def main():
     parser=argparse.ArgumentParser()
-    parser.add_argument('--output',type=Path,default=Path('/workspace/artifacts/NES-ROOM-v0.4.zip'))
+    parser.add_argument('--output',type=Path,default=Path('/workspace/artifacts/NES-ROOM-v0.5.zip'))
     args=parser.parse_args()
     files=[ROOT/name for name in ('README.md','START-TUTAJ.txt','START-WINDOWS.bat','START-MAC-LINUX.command')]
     for folder in ('neslab','web','tests','scripts'):
         files.extend(path for path in (ROOT/folder).rglob('*') if path.is_file()
-            and '__pycache__' not in path.parts and path.suffix.lower() in ('.py','.js','.css','.html','.txt','.md'))
+            and '__pycache__' not in path.parts and path.suffix.lower() in ('.py','.js','.css','.html','.txt','.md','.png'))
     args.output.parent.mkdir(parents=True,exist_ok=True)
     with zipfile.ZipFile(args.output,'w',zipfile.ZIP_DEFLATED) as archive:
         for path in sorted(files):

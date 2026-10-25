@@ -42,6 +42,9 @@ class ServerTests(unittest.TestCase):
         for asset in ('room.js', 'room.css'):
             with urllib.request.urlopen(self.base + '/' + asset) as response:
                 self.assertEqual(response.status, 200)
+        with urllib.request.urlopen(self.base + '/assets/room-1994.png') as response:
+            self.assertEqual(response.headers.get_content_type(), 'image/png')
+            self.assertTrue(response.read().startswith(b'\x89PNG'))
 
     def test_analysis_upload(self):
         with urllib.request.urlopen(self.base + '/api/analyze', data=fixture()) as response:

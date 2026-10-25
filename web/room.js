@@ -33,12 +33,13 @@ async function loadFile(file){
     cartridge=file;$('game-name').textContent=file.name;
     $('welcome').hidden=true;$('player').hidden=false;
     $('television').classList.add('playing');
+    document.querySelector('.room').classList.add('powered');
     await emulator.start();sync();
     message('Kartridż gotowy. Enter to Start. Miłej gry.');
   }catch(error){
     const connection=['TypeError','TimeoutError'].includes(error.name);
     message(connection?'Brak odpowiedzi serwera. Sprawdź, czy okno aplikacji nadal jest otwarte, i spróbuj ponownie.':error.message,true);
-    if(!emulator?.nes){if(emulator)emulator.destroy();emulator=null;cartridge=null;$('game-name').textContent='Jeszcze żadna gra';$('welcome').hidden=false;$('player').hidden=true;$('television').classList.remove('playing');}
+    if(!emulator?.nes){if(emulator)emulator.destroy();emulator=null;cartridge=null;$('game-name').textContent='Jeszcze żadna gra';$('welcome').hidden=false;$('player').hidden=true;$('television').classList.remove('playing');document.querySelector('.room').classList.remove('powered');}
     sync();
   }finally{loading=false;$('loading').hidden=true;$('rom').disabled=false;$('rom').value='';}
 }
@@ -53,7 +54,12 @@ $('pause').onclick=async()=>{if(!emulator||loading)return;if(emulator.running)em
 $('restart').onclick=async()=>{if(emulator?.config&&!loading){emulator.load(emulator.config);await emulator.start();sync();message('Jeszcze raz. Gra uruchomiona od początku.');}};
 $('sound').onclick=()=>{if(!emulator)return;emulator.muted=!emulator.muted;if(emulator.muted)emulator.clearAudio();else if(emulator.audio)emulator.audio.resume().catch(()=>message('Przeglądarka nie pozwoliła włączyć dźwięku.',true));sync();};
 $('crt').onclick=()=>{const enabled=$('crt').getAttribute('aria-pressed')!=='true';$('crt').setAttribute('aria-pressed',String(enabled));$('television').classList.toggle('no-crt',!enabled);};
-$('fullscreen').onclick=async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else if($('television').requestFullscreen)await $('television').requestFullscreen();else throw new Error();if(emulator)emulator.canvas.focus();}catch(error){message('Ta przeglądarka nie udostępnia pełnego ekranu.',true);}};
+$('fullscreen').onclick=async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else if($('theater').requestFullscreen)await $('theater').requestFullscreen();else throw new Error();if(emulator)emulator.canvas.focus();}catch(error){message('Ta przeglądarka nie udostępnia pełnego ekranu.',true);}};
+document.addEventListener('fullscreenchange',()=>{
+  const active=document.fullscreenElement===$('theater');
+  $('fullscreen').textContent=active?'⛶ Wróć do pokoju':'⛶ Pełny ekran';
+  $('fullscreen').setAttribute('aria-pressed',String(active));
+});
 $('help').onclick=()=>{if(emulator)emulator.pause();$('help-dialog').showModal();};
 $('close-help').onclick=()=>$('help-dialog').close();
 $('help-dialog').addEventListener('click',event=>{if(event.target===$('help-dialog')){const r=event.target.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)event.target.close();}});

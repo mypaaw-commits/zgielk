@@ -56,6 +56,8 @@ class NESLabPlayer {
       });
       const bytes=Uint8Array.from(atob(config.romBase64),c=>c.charCodeAt(0));
       this.nes.loadROM(bytes);
+      // Preserve all 256×240 pixels. A real TV's overscan is decorative, not a crop.
+      this.nes.ppu.clipToTvSize=false;
       this.context.fillStyle='#000';this.context.fillRect(0,0,256,240);
       this.setEnabled(true);
       this.updateStatus('ROM gotowy. Kliknij Uruchom albo 1 klatka.');

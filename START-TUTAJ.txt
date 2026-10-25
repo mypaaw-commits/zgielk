@@ -1,0 +1,28 @@
+NES LAB 0.2 — analizator i generator projektów NES
+
+1. Rozpakuj CAŁY ZIP do folderu na swoim komputerze.
+2. Zainstaluj Python 3.12 lub nowszy, jeśli go nie masz:
+   https://www.python.org/downloads/
+   Windows: zaznacz podczas instalacji „Add Python to PATH”.
+3. Windows: kliknij START-WINDOWS.bat.
+   macOS: kliknij START-MAC-LINUX.command.
+   Linux / terminal macOS: sh START-MAC-LINUX.command
+   Alternatywnie w katalogu aplikacji: python -m neslab.launch
+4. Przeglądarka otworzy aplikację. Jeśli nie, skopiuj adres z terminala.
+5. Kliknij „Otwórz ROM / ZIP” i wybierz plik .nes lub eksport NES LAB (do 32 MiB).
+6. „Podgląd gry”: kliknij Uruchom w panelu emulatora.
+7. „Generuj projekt ZIP”: pobierz i rozpakuj ZIP, otwórz play.html.
+   Wygenerowana gra działa bez Pythona i bez internetu.
+   Sterowanie: strzałki, X=A, Z=B, Enter=Start, Shift=Select.
+   Dostępne są także przyciski ekranowe, pauza, krok klatki i zrzut stanu JSON.
+
+Pozostaw terminal otwarty podczas pracy. Ctrl+C zatrzymuje serwer.
+Nie otwieraj web/index.html bezpośrednio: analizę wykonuje serwer Pythona.
+Aplikacja działa lokalnie; nie wymaga pobierania dodatkowych bibliotek.
+ROM jest przetwarzany w pamięci serwera na twoim komputerze.
+
+Wygenerowany projekt używa emulatora JSNES 2.1.0 w JavaScript i osadzonego ROM-u.
+Mechaniki pozostają w oryginalnym programie. To nie automatyczny natywny port,
+nie odzyskany kod źródłowy i nie gwarancja zgodności 1:1. Nie wszystkie mappery
+i warianty sprzętu są obsługiwane; aplikacja pokazuje ograniczenia.
+W paczce narzędzia nie ma gier ani ROM-ów. Szczegóły: README.md.

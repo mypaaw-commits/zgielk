@@ -34,3 +34,10 @@ body{background:#131413}.topbar{border-color:#ffffff09}.room{height:auto;aspect-
 .screen:before{box-shadow:none}.room:after{z-index:1}
 @media(min-width:701px) and (max-width:1050px){.play-area{width:43%}}
 @media(max-width:700px){.play-area{max-width:330px}.theater:fullscreen .play-area{max-width:none}}
+/* Move the camera closer without detaching the TV from the photographed cabinet. */
+.room{background-size:110% auto;background-position:center top}
+.play-area{width:47.3%;bottom:35.65%}
+.theater:fullscreen .room{background-size:128% auto;background-position:center top}
+.theater:fullscreen .play-area{width:55.04%;bottom:25.12%;top:auto;max-width:none}
+@media(max-width:700px){.room{background-size:auto 108%;background-position:center top}.play-area{width:88.56%;max-width:344px;bottom:36.82%}.theater:fullscreen .room{background-size:128% auto}.theater:fullscreen .play-area{width:55.04%;bottom:25.12%;max-width:none}}
+@media(max-width:410px){.play-area{width:92.88%}.theater:fullscreen .play-area{width:55.04%}}

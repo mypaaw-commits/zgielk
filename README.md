@@ -1,4 +1,4 @@
-# NES ROOM 0.5
+# NES ROOM 0.5.1
 
 Prosty emulator NES w przeglądarce, w ilustracyjnym pokoju z lat 90. Wybierz własny plik `.nes` lub upuść go na ekran kineskopowego telewizora — gra uruchamia się automatycznie. Interfejs skupia się na graniu.
 
@@ -17,7 +17,7 @@ Przeglądarka otworzy się automatycznie. Pozostaw terminal otwarty. Ctrl+C zatr
 
 - Ruch: strzałki. A: X, B: Z. Start: Enter. Select: Shift.
 - Kliknij ekran TV, aby aktywować klawiaturę.
-- Pod telewizorem: pauza/wznowienie, restart i pełny ekran. Escape opuszcza pełny ekran. Pełny ekran obejmuje cały pokój z lekko oddalonym telewizorem i dostępnymi przyciskami.
+- Pod telewizorem: pauza/wznowienie, restart i pełny ekran. Escape opuszcza pełny ekran. Pełny ekran obejmuje cały pokój z przybliżonym telewizorem i dostępnymi przyciskami.
 - Pokrętło VOLUME wycisza lub przywraca dźwięk.
 - Przełącznik CRT wyłącza nakładkę linii kineskopu.
 - Na małych ekranach dostępny jest pad dotykowy.
@@ -45,3 +45,5 @@ Node jest potrzebny tylko do tych testów regresji, nie do uruchamiania aplikacj
 Paczka bez ROM-ów: `python scripts/package.py`.
 
 Wersja 0.5: pełna klatka 256×240 bez overscanu. Gra zachowuje natywne proporcje i mieści się wewnątrz ramki; linie CRT można wyłączyć. Pełny ekran pokazuje całą scenę, a nie tylko TV. Lokalna scenografia `web/assets/room-1994.png` została wygenerowana do tej aplikacji i jest dołączona do paczki, więc nie wymaga internetu.
+
+Wersja 0.5.1 przybliża kadr i TV: lekko w zwykłym widoku, wyraźnie mocniej na pełnym ekranie. Telewizor i scenografia są skalowane razem, z zachowaniem ustawienia na szafce.

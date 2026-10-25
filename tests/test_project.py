@@ -74,8 +74,11 @@ class ProjectTests(unittest.TestCase):
             self.assertIn(base64.b64encode(data).decode(),html)
             self.assertNotIn('<script src=',html)
             self.assertIn('new NESLabPlayer',html)
+            self.assertIn('NES LAB PPU fix',html)
+            self.assertIn('Modified by NES LAB',html)
             self.assertIn('code/6502.asm',archive.namelist())
             self.assertIn('licenses/JSNES-LICENSE.txt',archive.namelist())
+            self.assertIn('licenses/JSNES-PATCHES.txt',archive.namelist())
             self.assertEqual(json.loads(archive.read('analysis.json'))['runtime']['mode'],'original-rom-emulation')
 
     def test_unsupported_timing_mapper_and_trainer(self):

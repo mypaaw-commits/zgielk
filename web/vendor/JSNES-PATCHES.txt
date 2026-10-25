@@ -1,0 +1,25 @@
+NES LAB PPU fix 1 — JSNES 2.1.0
+
+The upstream jsnes.min.js is retained byte-for-byte. Its SHA-256 is:
+84946f0dae4bcf3b2dfebe84ad3bfeb1dbcb413bd9b1a69e1f45910a95fd7b41
+
+jsnes-patched.min.js is a locally modified derivative under Apache-2.0.
+Build it with: python scripts/patch_jsnes.py
+
+In src/ppu/index.js, renderSpritesPartially, the 8x16 sprite tile base was:
+  (sprTile & 1) !== 0 ? (sprTile & 0xFE) - 1 + 256 : (sprTile & 0xFE)
+The correction removes the extra subtraction:
+  (sprTile & 0xFE) + ((sprTile & 1) ? 256 : 0)
+
+For 8x16 NES sprites, bit 0 of the OAM tile byte selects pattern table
+$0000/$1000; bits 7..1 select the even top tile. Bit 0 must not also
+subtract a tile from that even base. The bottom tile is base + 1.
+Both horizontal and vertical flip flags still apply unchanged.
+
+The minified distribution changes one expression only. License in
+JSNES-LICENSE.txt. Package provenance in README.txt.
+Regression test: node tests/test_ppu.js
+The test compares every tile byte (0..255), both pattern tables,
+all four flip combinations, all pixels and all sprite palettes against
+an independent 8x16 OAM addressing formula. It must fail on the original
+upstream bundle and pass on the patched bundle.

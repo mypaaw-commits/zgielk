@@ -28,7 +28,7 @@ def compatibility(data, report):
         reasons.append('Runtime wymaga całych banków PRG 16 KiB i CHR 8 KiB.')
     if report['format'] == 'iNES' and any(data[8:16]) and report['mapper'] >= 16:
         reasons.append('Niejednoznaczny stary nagłówek: parser i runtime mogłyby inaczej rozpoznać mapper.')
-    return {'available': not reasons, 'reasons': reasons, 'mode': 'original-rom-emulation', 'engine': 'JSNES 2.1.0',
+    return {'available': not reasons, 'reasons': reasons, 'mode': 'original-rom-emulation', 'engine': 'JSNES 2.1.0 + NES LAB PPU fix 1',
             'notice': 'Projekt wykonuje oryginalny kod ROM-u w emulatorze JavaScript. Nie jest automatycznym przepisaniem gry ani gwarancją zgodności 1:1.'}
 
 
@@ -47,7 +47,7 @@ def project_zip(data):
     if not report['runtime']['available']:
         raise RomError(' '.join(report['runtime']['reasons']))
     config = {'romBase64': base64.b64encode(data).decode(), 'sha256': report['sha256'], 'mapper': report['mapper'], 'name': 'Projekt NES'}
-    vendor = (WEB / 'vendor/jsnes.min.js').read_text()
+    vendor = (WEB / 'vendor/jsnes-patched.min.js').read_text()
     runtime = (WEB / 'player.js').read_text()
     # All injected variable content is fixed metadata or base64; escape end tags in scripts.
     def safe(script):
@@ -73,11 +73,12 @@ def project_zip(data):
         archive.writestr('src/player.css', (WEB / 'player.css').read_bytes())
         archive.writestr('src/jsnes.min.js', vendor)
         archive.writestr('licenses/JSNES-LICENSE.txt', (WEB / 'vendor/JSNES-LICENSE.txt').read_bytes())
+        archive.writestr('licenses/JSNES-PATCHES.txt', (WEB / 'vendor/JSNES-PATCHES.txt').read_bytes())
         archive.writestr('README.txt', 'NES LAB — projekt runtime JavaScript\n\nRozpakuj CAŁOŚĆ i otwórz play.html w przeglądarce. Nie wymaga Pythona ani internetu.\n'
             'Kliknij Uruchom. Sterowanie: strzałki, X=A, Z=B, Enter=Start, Shift=Select. Dostępne także przyciski ekranowe.\n'
             'Pauza, pojedyncza klatka, restart i zrzut stanu służą do analizy działania. Zrzut obejmuje stan emulatora, RAM, PPU, OAM i wejścia.\n'
             'Original.nes i surowe sekcje zachowują bajty ROM-u. Grafika CHR: graphics/.\n'
             'code/6502.asm: statyczni kandydaci na kod dla NROM. To nie jest odzyskany kod źródłowy, gotowy port ani opis mechanik.\n'
             'Gra wymaga oryginalnego ROM-u osadzonego w play.html. Nie usuwa to zależności od programu 6502.\n'
-            'Runtime: JSNES 2.1.0, Apache-2.0. Licencja w licenses/. Zgodność wszystkich scen i dźwięku 1:1 nie została potwierdzona.\n')
+            'Runtime: JSNES 2.1.0 + NES LAB PPU fix 1, Apache-2.0. Licencja i opis zmian w licenses/. Zgodność wszystkich scen i dźwięku 1:1 nie została potwierdzona.\n')
     return output.getvalue()

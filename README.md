@@ -1,4 +1,6 @@
-# NES LAB 0.2
+# NES LAB 0.2.1
+
+Wersja 0.2.1 poprawia indeksowanie sprite’ów 8×16 z tablicy wzorców $1000 (błędne bonusy i pociski). Poprawka działa w podglądzie i w nowo wygenerowanym `play.html`. Stare projekty należy wygenerować ponownie. Oryginalny ROM nie jest zmieniany. Szczegóły i odtwarzalny patch: `web/vendor/JSNES-PATCHES.txt`, `scripts/patch_jsnes.py`. Oryginalny bundle JSNES pozostaje bez zmian; aplikacja używa osobnego pliku z poprawką.
 
 Laboratorium analizy ROM-ów NES i generator samodzielnych projektów uruchamiających grę w JavaScript. Python 3.12+, bez instalowania bibliotek, CDN, bazy danych i kluczy API. Emulator JSNES 2.1.0 jest dołączony lokalnie wraz z licencją Apache-2.0.
 
@@ -40,6 +42,7 @@ Projekt odtwarza działanie przez wykonanie oryginalnego kodu maszynowego w emul
 
 ```sh
 python -m unittest discover -s tests -v
+node tests/test_ppu.js
 ```
 
 Testy używają syntetycznych ROM-ów: nagłówki, rozmiary NES 2.0, trainer, pliki ucięte, wektory, teksty, bezstratny ZIP, bitplany PNG i CRC, analiza skoków 6502, nieobsługiwane warianty, import ZIP z limitem rozpakowanego rozmiaru oraz pełne API analizy i generatora.

@@ -1,4 +1,7 @@
-NES LAB 0.2 — analizator i generator projektów NES
+NES LAB 0.2.1 — analizator i generator projektów NES
+
+Ta wersja poprawia błędne kafelki bonusów i pocisków dla sprite'ów 8x16.
+Jeśli masz stary wygenerowany play.html, wygeneruj projekt ponownie.
 
 1. Rozpakuj CAŁY ZIP do folderu na swoim komputerze.
 2. Zainstaluj Python 3.12 lub nowszy, jeśli go nie masz:

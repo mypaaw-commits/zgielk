@@ -94,11 +94,8 @@ $('preview').addEventListener('click',async()=>{
   busy=true;$('preview').disabled=true;
   $('message').textContent='Przygotowywanie podglądu gry…';
   try{
-    const config=await(await send('/api/runtime',currentFile)).json();
-    if(player)player.destroy();
-    player=new NESLabPlayer($('player'));player.load(config);
-    window.neslabPlayer=player;
-    $('runtime-panel').hidden=false;$('runtime-panel').scrollIntoView({block:'start'});
+    await ensurePlayer();
+    $('runtime-panel').scrollIntoView({block:'start'});
     $('message').textContent='Podgląd gotowy. Kliknij Uruchom w panelu gry.';
   }catch(error){$('message').textContent=error.message;}
   finally{busy=false;$('preview').disabled=false;}
@@ -130,3 +127,14 @@ async function initialize() {
   }
 }
 initialize();
+
+async function ensurePlayer() {
+  if(player?.nes)return player;
+  const config=await(await send('/api/runtime',currentFile)).json();
+  if(player)player.destroy();
+  player=new NESLabPlayer($('player'));player.load(config);
+  window.neslabPlayer=player;
+  if(!player.nes)throw new Error('Emulator nie załadował ROM-u.');
+  $('runtime-panel').hidden=false;
+  return player;
+}

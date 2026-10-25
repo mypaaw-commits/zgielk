@@ -1,4 +1,4 @@
-# NES LAB 0.3
+# NES LAB 0.3.1
 
 Wersja 0.2.1 poprawia indeksowanie sprite’ów 8×16 z tablicy wzorców $1000 (błędne bonusy i pociski). Poprawka działa w podglądzie i w nowo wygenerowanym `play.html`. Stare projekty należy wygenerować ponownie. Oryginalny ROM nie jest zmieniany. Szczegóły i odtwarzalny patch: `web/vendor/JSNES-PATCHES.txt`, `scripts/patch_jsnes.py`. Oryginalny bundle JSNES pozostaje bez zmian; aplikacja używa osobnego pliku z poprawką.
 
@@ -61,3 +61,11 @@ Testy używają syntetycznych ROM-ów: nagłówki, rozmiary NES 2.0, trainer, pl
 Budowanie paczki narzędzia (bez ROM-ów użytkownika): `python scripts/package.py`.
 
 Docelowy natywny klon: przeglądarka, własna logika JavaScript/TypeScript i Canvas 2D; edytowalne poziomy i zasoby. Nie opieramy planu na Godot. Ten etap przygotowuje materiały do portu; nie zawiera jeszcze nowego silnika gry.
+
+Wersja 0.3.1: CHR-RAM i wzorce PPU
+
+Atlas ma źródła CHR-ROM oraz PPU / CHR-RAM. „Odczytaj grafikę z gry” tworzy podgląd i wykonuje 180 klatek, jeżeli gra nie była uruchamiana. Jeśli podgląd już działał, zatrzymuje go i pobiera aktualny stan. Odczyt obejmuje 512 obecnie zdekodowanych kafelków z dwóch tablic PPU; nie wszystkie banki ani zasoby całej gry. Niektóre gry ładują grafikę dopiero po Start lub zmianie planszy — przejdź dalej w podglądzie i ponów odczyt. Pusty PPU jest jawnie oznaczony. Obsługa tej funkcji wymaga mappera obsługiwanego przez runtime.
+
+Zrzut można pobrać jako 8192 bajty NES CHR BIN oraz atlas PNG 128×256 w umownej palecie. Zrzut stanu JSON zawiera również wzorce PPU, numer klatki i SHA-256 ROM-u. Wybór innego ROM-u czyści poprzedni atlas PPU i eksporty.
+
+Test odczytu po prawdziwym wykonaniu CPU na syntetycznym kartridżu CHR-RAM: `node tests/test_chr_patterns.js`.

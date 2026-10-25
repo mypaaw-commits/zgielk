@@ -1,4 +1,4 @@
-NES LAB 0.3 — analizator i generator projektów NES
+NES LAB 0.3.1 — analizator i generator projektów NES
 
 Ta wersja poprawia błędne kafelki bonusów i pocisków dla sprite'ów 8x16.
 Jeśli masz stary wygenerowany play.html, wygeneruj projekt ponownie.
@@ -35,3 +35,8 @@ oraz notatki i referencje do przyszłego portu. Opis referencyjny Battle City
 jest przypisany do konkretnej sumy SHA-256, a nie automatycznie odzyskany
 z każdego ROM-u. Inne gry wymagają własnych obserwacji. Pobierz dokumentację
 JSON, aby przenieść notatki i zachowane klatki na inny komputer.
+
+Brak CHR-ROM? W panelu kafelków kliknij „Odczytaj grafikę z gry”.
+Narzędzie wykona początkowe 180 klatek i pokaże bieżące wzorce PPU.
+Przejdź do rozgrywki w podglądzie i ponawiaj odczyt, aby zebrać dalszą grafikę.
+Dostępny eksport bieżącego atlasu PNG i kafelków BIN.

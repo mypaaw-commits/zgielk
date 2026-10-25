@@ -109,13 +109,26 @@ class NESLabPlayer {
     if(this.inputs.length<20000)this.inputs.push({frame:this.frameCount,button:key,down});
   }
   releaseAll(){if(!this.held)return;for(const [code,key] of Object.entries(this.keyMap))if(this.held.has(key))this.button(code,false);}
+  patternSnapshot() {
+    if(!this.nes||this.frameCount<1)throw new Error('Najpierw uruchom grę, aby załadowała grafikę do PPU.');
+    // Read the currently decoded pattern tiles, not PRG bytes or stale unmapped VRAM.
+    const bytes=new Uint8Array(8192);
+    for(let tile=0;tile<512;tile++)for(let y=0;y<8;y++)for(let x=0;x<8;x++){
+      const pixel=this.nes.ppu.ptTile[tile].pix[y*8+x];
+      bytes[tile*16+y]|=(pixel&1)<<(7-x);
+      bytes[tile*16+y+8]|=((pixel>>1)&1)<<(7-x);
+    }
+    return {format:'neslab-pattern-snapshot-v1',rom_sha256:this.config.sha256,frame:this.frameCount,
+      source:'PPU decoded pattern tables $0000-$1FFF',chr_base64:btoa(String.fromCharCode(...bytes)),
+      notice:'Bieżące 8 KiB wzorców PPU. Nie obejmuje wszystkich banków ani grafiki z nieodwiedzonych ekranów; paleta atlasu jest umowna.'};
+  }
   snapshot() {
     if(!this.nes)throw new Error('Brak wczytanego ROM-u.');
     return {format:'neslab-runtime-state-v1',engine:'JSNES 2.1.0 + NES LAB PPU fixes 1-2',rom_sha256:this.config.sha256,
       frame:this.frameCount,frame_hash:this.frameHash,frame_hash_algorithm:'fnv1a-u32-bgr',screenshot_png:this.canvas.toDataURL('image/png'),
       inputs:this.inputs.slice(),input_log_limit:20000,input_log_may_be_truncated:this.inputs.length>=20000,
       ram:Array.from(this.nes.cpu.mem.slice(0,2048)),ppu_vram:Array.from(this.nes.ppu.vramMem),oam:Array.from(this.nes.ppu.spriteMem),
-      state:this.nes.toJSON(),notice:'Zaobserwowany stan emulatora, nie rozpoznane struktury poziomów, fizyki lub animacji.'};
+      patterns:this.frameCount?this.patternSnapshot():null,state:this.nes.toJSON(),notice:'Zaobserwowany stan emulatora, nie rozpoznane struktury poziomów, fizyki lub animacji.'};
   }
   downloadState() {
     if(!this.nes)return;
